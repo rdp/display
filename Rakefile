@@ -1,10 +1,11 @@
- require 'jeweler'
-  Jeweler::Tasks.new do |gemspec|
-    gemspec.name = "analyze"
-    gemspec.summary = "One line summary of your gem"
-    gemspec.description = "A different and possibly longer explanation of"
-    gemspec.email = "josh@technicalpickles.com"
-    gemspec.homepage = "http://github.com/technicalpickles/the-perfect-gem"
-    gemspec.authors = ["Josh Nichols"]
-    gemspec.dependency 'ruby_parser'
-  end
+require 'jeweler'
+Jeweler::Tasks.new do |s|
+    s.name = "analyze"
+    s.summary = "ruby tool for quick debug statements gives you 'at line x, a = 3, b = 4, c = 5'"
+    s.email = "rogerdpack@gmail.com"
+    s.homepage = "http://github.com/rdp/analyze"
+    s.authors = ["Roger Pack"]
+    s.add_development_dependency 'rspec'
+    s.add_development_dependency 'sane'
+    s.add_dependency 'redparse'
+end

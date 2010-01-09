@@ -1,33 +1,40 @@
 require 'sane'
-require_rel '../lib/analyze'
+require_rel '../lib/display'
 require 'spec/autorun'
 
-describe "analyze" do
+describe "display" do
+
+  before do
+    a = 3
+    b=4
+    @output = display a, b
+  end
 
   it "should be callable" do
-    a = b = 3
-    c = analyze a, b
-    assert c.contain?( "a=")
-    assert c.contain?( "b=")
+    assert @output.contain?( "a=")
+    assert @output.contain?( "b=")
   end
   
   it "should add spacing appropriately with commas" do
-    a = b = 3
-    c = analyze a, b
-    assert c.contain?(",")
+    assert @output.contain?(", ")
   end  
   
-  it "should get all variables"
-  it "should show linenumber too"
+  it "should show linenumber too" do
+    assert @output.contain?(",10")
+  end
 
   it "should retrieve call nodes for ya" do
-   for string in ["c = analyze a, b", "analyze a, b"] do
-     parser=RedParse.new(string)
-     tree = parser.parse
-     node = give_me_first_call_node tree
-     assert node.class == RedParse::CallNode
-     assert node.params.length == 2
-   end
+    for string in ["c = display a, b", "display a, b"] do
+      parser=RedParse.new(string)
+      tree = parser.parse
+      node = give_me_first_call_node tree
+      assert node.class == RedParse::CallNode
+      assert node.params.length == 2
+    end
+  end
+  
+  it "shouldn't barf with more complex things" do
+    output = display 3, 4+5
   end
 
 end

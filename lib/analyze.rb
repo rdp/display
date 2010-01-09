@@ -13,9 +13,9 @@ class Object
    right_call_node = give_me_first_call_node tree
    # eureka
    out = "#{file}:#{line} "
-   right_call_node.params.each{ |p|
-    out += "#{p.name}=#{args.shift}"
-   }
+   out += right_call_node.params.map{ |p|
+    "#{p.name}=#{args.shift}"
+   }.join(',')
    puts out
    out
   end

@@ -14,7 +14,7 @@ describe "analyze" do
   it "should add spacing appropriately with commas" do
     a = b = 3
     c = analyze a, b
-    assert c.contain?(",")    
+    assert c.contain?(",")
   end  
   
   it "should get all variables"

@@ -1,3 +1,4 @@
+require 'rubygems'
 require 'sane'
 require_rel '../lib/display'
 require 'spec/autorun'
@@ -19,8 +20,8 @@ describe "display" do
     assert @output.contain?(", ")
   end  
   
-  it "should show linenumber too" do
-    assert @output.contain?(",10")
+  it "should show linenumber too" do    
+    assert @output.contain?(",11")
   end
 
   it "should retrieve call nodes for ya" do
@@ -36,5 +37,11 @@ describe "display" do
   it "shouldn't barf with more complex things" do
     output = display 3, 4+5
   end
+  
+  it "should work with longer dir names in 1.8" do
+    require 'sub/go2'
+  end
+
+  it "should cache lines instead of rereading the file each time"
 
 end

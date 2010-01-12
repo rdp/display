@@ -1,10 +1,19 @@
+require 'stringio' # fix sequence bug, I think
 require 'redparse' # takes forever on doze [ltodo]
 
 class Object
   def display *args
    a = caller
-   last_caller = a[0] # "spec.analyze:9" # TODO work with full paths
-   file, line, *rest = last_caller.split(":") # TODO cache shtuff
+   last_caller = a[0] 
+   if last_caller[1..1] == ":"
+     # could be like E:/dev/ruby/sane/spec/../lib/sane/require_relative.rb:9:in `require_relative'
+     drive, file, line, *rest = last_caller.split(":")
+   else
+     # or like
+     # "spec.analyze:9"
+     file, line, *rest = last_caller.split(":")
+   end
+   
    exact_line = File.readlines(file)[line.to_i - 1].strip
    parser=RedParse.new(exact_line)
    tree = parser.parse

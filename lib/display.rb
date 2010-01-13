@@ -15,16 +15,16 @@ class Object
    end
    
    exact_line = File.readlines(file)[line.to_i - 1].strip
-   parser=RedParse.new(exact_line)
+   parser = RedParse.new(exact_line)
    tree = parser.parse
    out = nil
    # the trick is to break out with the first method call...
    right_call_node = give_me_first_call_node tree
-   # eureka
-   out = "#{File.basename(file)},#{line}: "
-   out += right_call_node.params.map{ |p|
-     "#{p.unparse}=#{args.shift}"    
+   out = "[#{File.basename(file)},#{line}] "
+   args2 = right_call_node.params.map{ |p|
+      "#{p.unparse}=#{args.shift}"    
    }.join(', ')
+   out += args2
    
    puts out
    out
@@ -33,6 +33,7 @@ class Object
   def give_me_first_call_node tree
     tree.walk{|parent,i,subi,node|
       if node.class == RedParse::CallNode
+       # eureka
         return tree
       else
         return give_me_first_call_node(node.right)

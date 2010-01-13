@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'sane'
-require_rel '../lib/display'
+require_relative '../lib/display'
 require 'spec/autorun'
 
 describe "display" do
@@ -11,9 +11,13 @@ describe "display" do
     @output = display a, b
   end
 
-  it "should be callable" do
+  it "should display the args" do
     assert @output.contain?( "a=")
     assert @output.contain?( "b=")
+  end
+  
+  it "should have an [] style output" do
+    assert @output =~ /\[.*\]/
   end
   
   it "should add spacing appropriately with commas" do

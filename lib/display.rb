@@ -22,7 +22,7 @@ class Object
    right_call_node = give_me_first_call_node tree
    out = "[#{File.basename(file)},#{line}] "
    args2 = right_call_node.params.map{ |p|
-      "#{p.unparse}=#{args.shift}"    
+      "#{p.unparse}=#{args.shift.inspect}"
    }.join(', ')
    out += args2
    

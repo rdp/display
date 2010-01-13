@@ -47,5 +47,13 @@ describe "display" do
   end
 
   it "should cache lines instead of rereading the file each time"
+  
+  it "should use inspect" do
+      a = [1,2,3]
+      out = display a
+      assert out.contain? "[1, 2, 3]"
+      out = display [1,2,3]
+      assert out.contain? "[1, 2, 3]"
+  end
 
 end

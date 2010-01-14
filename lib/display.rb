@@ -14,18 +14,25 @@ class Object
      file, line, *rest = last_caller.split(":")
    end
    
-   exact_line = File.readlines(file)[line.to_i - 1].strip
-   parser = RedParse.new(exact_line)
-   tree = parser.parse
-   out = nil
-   # the trick is to break out with the first method call...
-   right_call_node = give_me_first_call_node tree
-   out = "[#{File.basename(file)},#{line}] "
-   args2 = right_call_node.params.map{ |p|
-      "#{p.unparse}=#{args.shift.inspect}"
-   }.join(', ')
-   out += args2
+   if(file.include?('eval')) 
+     out = '[eval] '
+     names = args.map{|a| '?'}
+   else 
+     exact_line = File.readlines(file)[line.to_i - 1].strip
+     parser = RedParse.new(exact_line)
+     tree = parser.parse
+     # the trick is to break out with the first method call...
+     right_call_node = give_me_first_call_node tree
+     names = right_call_node.params.map{|p| p.unparse}
+     out = "[#{File.basename(file)},#{line}] "
+   end
    
+   
+   args2 = names.map{ |n|
+      "#{n}=#{args.shift.inspect}"
+   }.join(', ')
+   
+   out += args2   
    puts out
    out
   end

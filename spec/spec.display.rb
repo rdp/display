@@ -55,5 +55,12 @@ describe "display" do
       out = display [1,2,3]
       assert out.contain? "[1, 2, 3]"
   end
+  
+  it "should pretend to work in eval" do
+    out = eval("display 1,2,3")
+    assert(out.contain?('?='))
+    assert(out.contain?('eval'))
+    assert(out.contain?('1'))  
+  end
 
 end

@@ -1,12 +1,12 @@
-require 'stringio' # fix sequence bug, I think
-require 'redparse' # takes forever on doze [ltodo]
+require 'stringio' # fix a sequence 0.4.0 bug
+require 'redparse'
 
 class Object
-  def display *args
+  def show *args
    a = caller
    last_caller = a[0] 
    if last_caller[1..1] == ":"
-     # could be like E:/dev/ruby/sane/spec/../lib/sane/require_relative.rb:9:in `require_relative'
+     # might be like E:/dev/ruby/sane/spec/../lib/sane/require_relative.rb:9:in `require_relative'
      drive, file, line, *rest = last_caller.split(":")
    else
      # or like

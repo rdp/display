@@ -1,1 +1,1 @@
-display 3
+show 3
